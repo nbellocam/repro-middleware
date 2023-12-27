@@ -14,11 +14,11 @@ export const config = {
 };
 
 export default async function middleware(req: NextRequest) {
-  console.log("Dispatcher middleware -", req.url);
+  console.log("Middleware -", req.url);
 
   if (req.nextUrl.pathname.startsWith("/test") && req.nextUrl.locale !== "en") {
     console.log(
-      "Dispatcher middleware redirect -",
+      "Middleware redirect -",
       new URL(`/en${req.nextUrl.pathname}`, req.url).href
     );
     return NextResponse.redirect(

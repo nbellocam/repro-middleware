@@ -1,40 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Repo steps for issue with middleware matcher
 
-## Getting Started
+To create this sample I did the following:
 
-First, run the development server:
+1. `npx create-next-app@latest` (using page routing)
+1. `npx create-sst@latest`
+1. `npm i`
+1. Add the basic middleware structure (see [./middleware.ts](./middleware.ts))
+1. Add basic index page with redirect in server side props (not necessary but to avoid issues with root)
+1. Add test page (showing locale).
+1. configure localization with localeDetection in false.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+To see the issue, deploy the solution using `npx sst deploy`, navigate to root and see that you are not redirected to `/en/test` (locale === en) but to `/test` (locale === default).
+
+## Local logs
+
+```
+○ Compiling / ...
+ ✓ Compiled / in 573ms (202 modules)
+ ✓ Compiled in 76ms (202 modules)
+ ✓ Compiled /middleware in 51ms (64 modules)
+Middleware - http://localhost:3000/test
+Middleware redirect - http://localhost:3000/en/test
+Middleware - http://localhost:3000/en/test
+ ✓ Compiled /test in 60ms (268 modules)
+Middleware - http://localhost:3000/en/test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Cloud logs:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+You will only see logs if you navigate to `/en/test`, but not if you navigate to `/test/` or to root `/`.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+INFO Middleware - https://d3l7a6hcp6eabu.cloudfront.net/en/test
+```
