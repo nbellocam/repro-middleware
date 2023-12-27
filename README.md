@@ -14,6 +14,8 @@ To see the issue, deploy the solution using `npx sst deploy`, navigate to root a
 
 ## Local logs
 
+When navigating to `/` you will see the following logs.
+
 ```
 ○ Compiling / ...
  ✓ Compiled / in 573ms (202 modules)
@@ -26,9 +28,9 @@ Middleware - http://localhost:3000/en/test
 Middleware - http://localhost:3000/en/test
 ```
 
-Cloud logs:
+## Cloud logs
 
-You will only see logs if you navigate to `/en/test`, but not if you navigate to `/test/` or to root `/`.
+You will only see logs if you navigate directly to `/en/test`, but not if you navigate to `/test/` or to root `/`.
 
 ```
 INFO Middleware - https://d3l7a6hcp6eabu.cloudfront.net/en/test
